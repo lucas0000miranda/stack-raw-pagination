@@ -24,10 +24,6 @@ Install docker-compose for your platform.
 * Windows: Included with Docker
 * Linux: Please see your distributions package management system
 
-> **Note:** _If the file already exists, add the missing keys._
-
-> **Note:** _Make sure you your have the variables $COMPOSER_HOME and $GITHUB_TOKEN exported in your CLI of your preference._
-
 ### Installation
 
 First we need to clone the project.
