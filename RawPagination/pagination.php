@@ -6,7 +6,20 @@
 
 include('index.php');
 
-$row = $connection->getRow('select * from bdr');
+$itemsPerPage = (int) 7;
+$currentPage = intval($_GET['page']);
+
+// row with LIMIT
+$row = $connection->getRow("select * from bdr LIMIT $currentPage,$itemsPerPage");
+$totalOfRow = $connection->getRow("select count(id) from bdr");
+$totalOfRegisted = (int) $totalOfRow[0][0];
+
+//quantity of pages
+$quoteOfPages = (int) ceil($totalOfRegisted/$itemsPerPage);
+
+//Directions buttons
+$previous = 0;
+$next = 0;
 
 ?>
 <!doctype html>
@@ -23,8 +36,10 @@ $row = $connection->getRow('select * from bdr');
     <title>Stack Raw Pagination</title>
 </head>
 <body>
-<h1>Stack Raw Pagination!</h1>
-<table id="example" class="table table-hover table-striped table-bordered">
+<br>
+<br>
+<br>
+<table class="table table-hover table-striped table-bordered">
     <thead>
     <tr>
         <th scope="col">Id</th>
@@ -46,11 +61,25 @@ $row = $connection->getRow('select * from bdr');
     <?php endforeach; ?>
     </tbody>
 </table>
-<?php foreach ($row as $item) : ?>
-<ul class="pagination">
-    <li class="paginate_button"><a href="#" aria-controls="example" data-dt-idx="<?php echo $item['id'] ?>" tabindex="0"><?php echo $item['id'] ?></a></li>
-</ul>
-<?php endforeach; ?>
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <?php if ($currentPage>0) : ?>
+        <li class="page-item"><a class="page-link" href="pagination.php?page=<?php echo $currentPage-1 ?>">Previous</a></li>
+        <?php else :?>
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+        <?php endif?>
+        <?php for($i=0; $i<=$quoteOfPages; $i++) : ?>
+           <li class="page-item">
+               <a class="page-link" href="pagination.php?page=<?php echo $i?>"><?php echo $i+1?></a></li>
+        <?php endfor?>
+        <?php if($currentPage<=3) :?>
+        <li class="page-item"><a class="page-link" href="pagination.php?page=<?php echo $currentPage+1; ?>">Next</a></li>
+        <?php else :?>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        <?php endif?>
+    </ul>
+</nav>
+
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -61,12 +90,6 @@ $row = $connection->getRow('select * from bdr');
 <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-<script>
-    $(document).ready(function() {
-        $('#example').DataTable();
-    } );
-</script>
 </body>
 </html>
 

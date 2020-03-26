@@ -48,5 +48,4 @@ class Connection
 
         return $response;
     }
-
 }
