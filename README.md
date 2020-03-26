@@ -41,7 +41,7 @@ Next we up the project:
 docker-compose up
 ```
 
-Then we copy the IpAddress from MySql container, to it you can type:
+Then we copy the IpAddress from MySql container, for that type:
 
 ```bash
 docker ps
