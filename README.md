@@ -100,7 +100,7 @@ INSERT INTO `bdr` (`name`, `email`, `phone`, `picture`)
 
 ```
 
-You are already to run in the browser!
+You are ready to run in the browser!
 
 ```bash
 http://localhost:8000/pagination.php
