@@ -9,7 +9,7 @@
  * WARNING: Always set USER as root
  */
 
-const HOST = '172.28.0.2'; //This changes when you run the docker-compose
+const HOST = '172.30.0.2'; //This changes when you run the docker-compose
 const USER = 'root';
 const PASSWORD = '';
 const DB = 'my_db';
